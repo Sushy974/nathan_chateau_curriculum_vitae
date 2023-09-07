@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "460679561375",
+    "project_id": "nathan-chateau-cv",
+    "storage_bucket": "nathan-chateau-cv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460679561375:android:33cdac62fadcd397c1e2aa",
+        "android_client_info": {
+          "package_name": "com.example.nathan_chateau_curriculum_vitae"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460679561375-tkv9cg5gdh9p16efge9n24s9p8o9lqtj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHN9rXSwQcos1otRxLdXa30_0uNiF50Hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460679561375-tkv9cg5gdh9p16efge9n24s9p8o9lqtj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
