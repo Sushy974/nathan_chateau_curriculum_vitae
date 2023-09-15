@@ -145,4 +145,20 @@ class FireStoreDataBase implements DataBase {
     CollectionReference cv = FirebaseFirestore.instance.collection('cv');
     return cv.doc('EM0k3vKITLfyBn69SyhT').update(cvData.toJson());
   }
+
+  @override
+  Future<void> deleteCompetence({required String id}) async {
+    CollectionReference comp =
+        FirebaseFirestore.instance.collection('competence_savoire_faire');
+    return comp.doc(id).delete();
+  }
+
+  @override
+  Future<void> addCompetence(
+      {required double niveau, required String nom}) async {
+    Competence competence =
+        Competence(niveauCompetence: niveau, nomCompetence: nom, uid: '');
+    CollectionReference comp = firestore.collection('competence_savoire_faire');
+    comp.add(competence.toJson());
+  }
 }

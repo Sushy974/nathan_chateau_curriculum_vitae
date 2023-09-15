@@ -86,4 +86,13 @@ class Crud {
       listLike: listLike,
     );
   }
+
+  Future<void> deleteCompetence({required String id}) async {
+    database.deleteCompetence(id: id);
+  }
+
+  Future<void> addCompetence(
+      {required double niveau, required String nom}) async {
+    database.addCompetence(niveau: niveau, nom: nom);
+  }
 }

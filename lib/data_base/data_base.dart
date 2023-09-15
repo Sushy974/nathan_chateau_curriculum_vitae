@@ -17,8 +17,11 @@ abstract class DataBase {
 
   Future<void> addCommentaire(
       {required String userName, required String text}) async {}
+  Future<void> addCompetence(
+      {required double niveau, required String nom}) async {}
 
   Future<void> deleteCommentaire() async {}
+  Future<void> deleteCompetence({required String id}) async {}
   Stream<CvData> getCvData();
   Future<void> updateCV(CvData cvData);
 

@@ -23,13 +23,14 @@ class CurriculumVitaeView extends StatelessWidget {
             Container(
               //width: 1200,
               decoration: BoxDecoration(color: couleurPalette1),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   header(),
                   Ligne1(),
                   Ligne2(),
-                  ChampCompetencesCustome(),
+                  ChampCompetencesCustome(
+                      datacompetences: DataCompetencesCurri()),
                   ChampCommentaireCustome(),
                 ],
               ),
@@ -93,10 +94,11 @@ class Ligne2 extends StatelessWidget {
 }
 
 class ChampCompetencesCustome extends StatelessWidget {
-  const ChampCompetencesCustome({
+  ChampCompetencesCustome({
+    required this.datacompetences,
     super.key,
   });
-
+  DataCompetences datacompetences;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -126,7 +128,7 @@ class ChampCompetencesCustome extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              DataCompetences(),
+              datacompetences,
             ],
           ),
         )
@@ -135,8 +137,12 @@ class ChampCompetencesCustome extends StatelessWidget {
   }
 }
 
-class DataCompetences extends StatelessWidget {
-  DataCompetences({
+abstract class DataCompetences extends StatelessWidget {
+  const DataCompetences({super.key});
+}
+
+class DataCompetencesCurri extends StatelessWidget implements DataCompetences {
+  DataCompetencesCurri({
     super.key,
   });
   final Color couleurLike = couleurPalette1;
@@ -150,127 +156,123 @@ class DataCompetences extends StatelessWidget {
             color: Colors.black,
             child: const Text('Savoire Faire'),
           ),
-          Container(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: couleurPalette1,
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Text(curriculumVitaeCubit.state
-                                      .listCompetence[index].nomCompetence),
-                                ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: couleurPalette1,
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(curriculumVitaeCubit
+                                    .state.listCompetence[index].nomCompetence),
                               ),
                             ),
-                            const SizedBox(
-                              width: 30,
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          right: 0,
-                          child: Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  couleurPalette3)),
-                                      hoverColor: Colors.lightBlueAccent[400],
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          )
+                        ],
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                couleurPalette3)),
+                                    hoverColor: Colors.lightBlueAccent[400],
+                                    color: couleurPalette1,
+                                    onPressed: () => context
+                                        .read<CurriculumVitaeCubit>()
+                                        .addLike(
+                                            UidCompetence: curriculumVitaeCubit
+                                                .state
+                                                .listCompetence[index]
+                                                .uid),
+                                    icon:
+                                        const Icon(Icons.thumb_up_alt_rounded)),
+                                const SizedBox(
+                                  width: 18,
+                                )
+                              ],
+                            ),
+                            Visibility(
+                              visible: true,
+                              child: Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
+                                  height: 25,
+                                  width: 25,
+                                  decoration: BoxDecoration(
                                       color: couleurPalette1,
-                                      onPressed: () => context
-                                          .read<CurriculumVitaeCubit>()
-                                          .addLike(
-                                              UidCompetence:
-                                                  curriculumVitaeCubit
-                                                      .state
-                                                      .listCompetence[index]
-                                                      .uid),
-                                      icon: const Icon(
-                                          Icons.thumb_up_alt_rounded)),
-                                  const SizedBox(
-                                    width: 18,
-                                  )
-                                ],
-                              ),
-                              Visibility(
-                                visible: true,
-                                child: Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  child: Container(
-                                    height: 25,
-                                    width: 25,
-                                    decoration: BoxDecoration(
-                                        color: couleurPalette1,
-                                        borderRadius:
-                                            BorderRadius.circular(200)),
-                                    child: Align(
-                                      child: Text(
-                                        curriculumVitaeCubit.state.listLike
-                                            .where((element) =>
-                                                element.uid_competence ==
-                                                curriculumVitaeCubit.state
-                                                    .listCompetence[index].uid)
-                                            .length
-                                            .toString(),
-                                        style: TextStyle(fontSize: 15),
-                                      ),
+                                      borderRadius: BorderRadius.circular(200)),
+                                  child: Align(
+                                    child: Text(
+                                      curriculumVitaeCubit.state.listLike
+                                          .where((element) =>
+                                              element.uid_competence ==
+                                              curriculumVitaeCubit.state
+                                                  .listCompetence[index].uid)
+                                          .length
+                                          .toString(),
+                                      style: const TextStyle(fontSize: 15),
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 30,
-                        right: 60,
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: couleurPalette3,
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: LinearProgressIndicator(
-                              backgroundColor: couleurPalette1,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  couleurPalette4),
-                              minHeight: 15,
-                              value: curriculumVitaeCubit
-                                  .state.listCompetence[index].niveauCompetence,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20))),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      right: 60,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: couleurPalette3,
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
                         ),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: LinearProgressIndicator(
+                            backgroundColor: couleurPalette1,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(couleurPalette4),
+                            minHeight: 15,
+                            value: curriculumVitaeCubit
+                                .state.listCompetence[index].niveauCompetence,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              itemCount: curriculumVitaeCubit.state.listCompetence.length,
             ),
+            itemCount: curriculumVitaeCubit.state.listCompetence.length,
           ),
         ],
       ),
@@ -349,11 +351,11 @@ class ChampCommentaireCustome extends StatelessWidget {
                           child: Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   curriculumVitaeCubit.state
                                       .listCommentaire[index].valeurCommentaire,
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                               ),
                             ],

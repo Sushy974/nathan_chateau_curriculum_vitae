@@ -9,11 +9,13 @@ class CustomTextField extends StatelessWidget {
     super.key,
     this.large,
     this.pass,
+    this.initialeValue,
   });
   final Function(String) onChange;
   final String? errorText;
   final String label;
   final Icon icon;
+  final String? initialeValue;
   bool? large = false;
   int? maxLine;
   bool? pass = false;
@@ -30,7 +32,8 @@ class CustomTextField extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: TextField(
+      child: TextFormField(
+        initialValue: initialeValue,
         obscureText: obscure,
         onChanged: onChange,
         maxLines: maxLine,
@@ -39,7 +42,6 @@ class CustomTextField extends StatelessWidget {
           border: const OutlineInputBorder(),
           labelText: label,
           suffixIcon: icon,
-          // hintText: 'Entrez le nom ici',
         ),
       ),
     );

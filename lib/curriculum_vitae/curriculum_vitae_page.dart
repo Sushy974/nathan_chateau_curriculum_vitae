@@ -21,6 +21,7 @@ class CurriculumVitaePage extends StatelessWidget {
     final appCubit = context.watch<AppCubit>();
     return Scaffold(
       appBar: CustomAppBar(
+        contextBuild: context,
         crud: context.read<Crud>(),
         utilisateur: appCubit.state.utilisateur,
       ),
