@@ -102,11 +102,13 @@ class FireStoreDataBase implements DataBase {
         .collection('competence_savoire_faire')
         .snapshots()
         .map((event) => event.docs
-            .map((e) => Competence(
-                  niveauCompetence: e.data()['niveau_competence'],
-                  nomCompetence: e.data()['nom_competence'],
-                  uid: e.id,
-                ))
+            .map(
+              (e) => Competence(
+                niveauCompetence: e.data()['niveau_competence'],
+                nomCompetence: e.data()['nom_competence'],
+                uid: e.id,
+              ),
+            )
             .toList());
   }
 

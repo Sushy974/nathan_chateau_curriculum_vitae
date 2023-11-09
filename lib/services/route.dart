@@ -8,7 +8,10 @@ import 'package:nathan_chateau_curriculum_vitae/inscription/inscription_page.dar
 import '../app_cubit.dart';
 import '../curriculum_vitae/curriculum_vitae_page.dart';
 
-List<Page> onGeneratePagesApp(AppState appState, List<Page> pages) {
+List<Page> onGeneratePagesApp(
+  AppState appState,
+  List<Page> pages,
+) {
   switch (appState.routeStages) {
     case RouteStages.CurriculumVitaePage:
       return [CurriculumVitaePage.page()];
